@@ -99,3 +99,26 @@
 
 (global-set-key [M-up] 'move-text-up)
 (global-set-key [M-down] 'move-text-down)
+
+; Bright-red TODOs
+;; Define a font-lock rule to highlight comments containing TODO in C/C++
+(font-lock-add-keywords
+ 'c++-mode
+ '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)))
+
+;; You can also add the rule to the generic c-mode
+(font-lock-add-keywords
+ 'c-mode
+ '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)))
+
+;; Define a font-lock rule to highlight comments containing TODO in assembly
+(add-hook 'asm-mode-hook
+          (lambda ()
+            (font-lock-add-keywords
+             nil
+             '(("\\<\\(TODO\\)\\>" 1 font-lock-warning-face t)))))
+
+; No hungry backspace
+(c-toggle-auto-hungry-state -1)
+
+
