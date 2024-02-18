@@ -3,10 +3,15 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(custom-enabled-themes nil)
  '(custom-safe-themes nil)
  '(ispell-dictionary nil)
- '(package-selected-packages '(use-package doom-themes magit iedit fill-column-indicator multiple-cursors gruvbox-theme diff-hl)))
+ '(package-selected-packages
+   '(cuda-mode use-package doom-themes magit iedit fill-column-indicator multiple-cursors gruvbox-theme diff-hl)))
 
 ;; Add Melpa repository if you haven't already
 (require 'package)
@@ -31,6 +36,49 @@
 
 ;; Enable line numbers
 (global-display-line-numbers-mode t)
+
+(require 'lsp)
+
+;; Enable LSP for CUDA C mode
+(add-hook 'cuda-mode-hook (lambda ()
+                            (condition-case nil
+                                (lsp)
+                              (error nil))))
+
+;; Enable LSP for C mode
+(add-hook 'c-mode-hook (lambda ()
+                         (condition-case nil
+                             (lsp)
+                           (error nil))))
+
+;; Enable LSP for C++ mode
+(add-hook 'c++-mode-hook (lambda ()
+                           (condition-case nil
+                               (lsp)
+                             (error nil))))
+
+;; Enable LSP for Python mode
+(add-hook 'python-mode-hook (lambda ()
+                               (condition-case nil
+                                   (lsp)
+                                 (error nil))))
+
+;; Enable LSP for VHDL mode
+(add-hook 'vhdl-mode-hook (lambda ()
+                             (condition-case nil
+                                 (lsp)
+                               (error nil))))
+
+;; Enable LSP for Verilog mode
+(add-hook 'verilog-mode-hook (lambda ()
+                                (condition-case nil
+                                    (lsp)
+                                  (error nil))))
+
+
+(autoload 'cuda-mode "cuda-mode" "Mode for editing CUDA C/C++ files" t)
+(add-to-list 'auto-mode-alist '("\\.cu\\'" . cuda-mode))
+
 
 (defun c-lineup-arglist-tabs-only (ignored)
   "Line up argument lists by tabs, not spaces"
@@ -177,4 +225,9 @@
 ;; Enable electric-pair-mode for C and VHDL modes
 (add-hook 'c-mode-common-hook 'electric-pair-mode)
 (add-hook 'vhdl-mode-hook 'electric-pair-mode)
-
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
