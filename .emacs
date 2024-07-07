@@ -25,6 +25,10 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+;; no more C-z
+(define-key global-map (kbd "C-z") nil)
+
+
 ;; Install diff-hl if not installed
 (unless (package-installed-p 'diff-hl)
   (package-refresh-contents)
